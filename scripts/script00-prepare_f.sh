@@ -49,9 +49,13 @@ for SCRIPT in "$SCRIPT_SOURCE_DIR"/*.sh; do
 
     [[ -f "$SCRIPT" ]] || continue
 
-    cp -f "$SCRIPT" "$SCRIPT_DIR/"
-    chmod +x "$SCRIPT_DIR/$(basename "$SCRIPT")"
+    DEST="$SCRIPT_DIR/$(basename "$SCRIPT")"
 
+    if [[ "$SCRIPT" != "$DEST" ]]; then
+        cp -f "$SCRIPT" "$DEST"
+    fi
+
+    chmod +x "$DEST"
     SCRIPT_COUNT=$((SCRIPT_COUNT + 1))
 
 done
@@ -61,7 +65,6 @@ if [[ "$SCRIPT_COUNT" -eq 0 ]]; then
     echo "       $SCRIPT_SOURCE_DIR"
     exit 1
 fi
-
 echo "[OK] $SCRIPT_COUNT script(s) copied to $SCRIPT_DIR"
 
 # 3. Set project ownership
