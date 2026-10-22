@@ -45,7 +45,7 @@ chmod +x scripts/*.sh
 Run each script individually, following the order below. Make sure each script completes successfully before proceeding to the next one.
 
 ```bash
-./scripts/script00-prepare.sh
+./scripts/script00-prepare_f.sh
 ./scripts/script01-static-ip.sh
 ./scripts/script02-install-services.sh
 ./scripts/script03-secure-mariadb.sh
@@ -64,11 +64,11 @@ Run each script individually, following the order below. Make sure each script c
 
 The repository must be cloned to `/root/projeto-web` because the scripts expect to find the generated configuration files in that location.
 
-The `script00-prepare.sh` script prompts for the IP address (including the subnet mask), gateway, and DNS servers. The `script06-mail-relay.sh` script prompts for the information required to configure the email relay.
+The `script00-prepare_f.sh` script prompts for the IP address (including the subnet mask), gateway, and DNS servers. The `script06-mail-relay.sh` script prompts for the information required to configure the email relay.
 
 ## Network Configuration
 
-Network parameters are requested by `script00-prepare.sh` during execution. The `project.conf` file is not used in this workflow.
+Network parameters are requested by `script00-prepare_f.sh` during execution. The `project.conf` file is not used in this workflow.
 
 The following example values can be used as a reference when preparing the configuration:
 
@@ -80,7 +80,7 @@ STATIC_DNS="1.1.1.1 8.8.8.8"
 
 **Replace the example values with the correct parameters for your network before running the setup scripts.** Incorrect values may disrupt the machine's network connectivity.
 
-Enter the appropriate values for your network when prompted by `script00-prepare.sh`. Do not copy the example values without verifying that they are correct for your environment.
+Enter the appropriate values for your network when prompted by `script00-prepare_f.sh`. Do not copy the example values without verifying that they are correct for your environment.
 
 The Gmail app password must not be stored in the repository or included in commits.
 
@@ -88,7 +88,7 @@ The Gmail app password must not be stored in the repository or included in commi
 
 | No. | Script | Description |
 |---:|---|---|
-| 00 | `script00-prepare.sh` | Prepares the project structure and generates `config.env` with network parameters |
+| 00 | `script00-prepare_f.sh` | Prepares the project structure and generates `config.env` with network parameters |
 | 01 | `script01-static-ip.sh` | Configures the static IP using `nmcli` and tests connectivity |
 | 02 | `script02-install-services.sh` | Installs and enables Apache, PHP, and MariaDB; creates `info.php` and tests the website |
 | 03 | `script03-secure-mariadb.sh` | Applies MariaDB security measures and creates the project's database and user |
@@ -132,7 +132,7 @@ cd /root/projeto-web
 ./scripts/script05-selinux.sh
 ```
 
-Start with `script00-prepare.sh`, as it generates the `config.env` file used by subsequent scripts.
+Start with `script00-prepare_f.sh`, as it generates the `config.env` file used by subsequent scripts.
 
 Run individual scripts only when you understand their dependencies and the current state of the server.
 
@@ -156,7 +156,7 @@ Rerun only the necessary script after identifying the cause of the failure and c
 
 ## Security and Important Notes
 
-- This project is run using individual scripts, from `script00-prepare.sh` to `script14-deploy-website.sh`, in the documented order. The workflow described in this README does not use `install.sh` or `project.conf`.
+- This project is run using individual scripts, from `script00-prepare_f.sh` to `script14-deploy-website.sh`, in the documented order. The workflow described in this README does not use `install.sh` or `project.conf`.
 - On CentOS Stream 10, network configuration is managed through NetworkManager; this project uses `nmcli`.
 - Router port forwarding must be configured manually and depends on the router hardware and Internet service provider.
 - **Credentials:** Review the scripts before publishing or running the project. Remove any lab passwords hardcoded in the source code and use strong, unique credentials. If a real credential has already been published, change it immediately; deleting it in a subsequent commit does not necessarily remove it from Git history.
@@ -171,7 +171,7 @@ centos10-web-automation/
 ├── config.env          # Generated during preparation; must not be version-controlled
 ├── logs/
 └── scripts/
-    ├── script00-prepare.sh
+    ├── script00-prepare_f.sh
     ├── script01-static-ip.sh
     ├── script02-install-services.sh
     ├── script03-secure-mariadb.sh
